@@ -10,14 +10,14 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   server: {
     port: 5000,
-    proxy: {
-      "/api": {
-        target: "https://theodorescsa.id.vn", // BE gốc
-        changeOrigin: true,
-        secure: false, // bỏ check SSL (fix được ERR_CERT_COMMON_NAME_INVALID khi dev)
-        rewrite: (path) => path.replace(/^\/api/, "/api/app-home/api"),
-      },
-    },
+    // proxy: {
+    //   "/api": {
+    //     target: "https://theodorescsa.id.vn/api", // BE gốc
+    //     changeOrigin: true,
+    //     secure: false, // bỏ check SSL (fix được ERR_CERT_COMMON_NAME_INVALID khi dev)
+    //     rewrite: (path) => path.replace(/^\/api/, ""),
+    //   },
+    // },
 
   },
   build: {

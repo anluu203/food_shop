@@ -6,7 +6,7 @@ import axios from 'axios';
 const appHome = ApiEnum.APP_HOME;
 export default class AuthService {
   async login(params: any) {
-    const url = `/token/`;
+    const url = `${appHome}/token/`;
     return axiosClient.post(url, params);
   }
   async refreshToken(params: any) {

@@ -12,7 +12,7 @@ interface CustomInternalAxiosRequestConfig extends InternalAxiosRequestConfig {
 }
 
 const axiosClient = axios.create({
-  baseURL: "/api",
+  baseURL: baseURL,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

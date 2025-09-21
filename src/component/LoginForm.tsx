@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Form, Input, Button, Card, Typography, Space } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import apiService from "@/apis";
+import { StorageEnum } from "@/helper/constants";
 
 const { Title, Text } = Typography;
 
@@ -15,6 +16,10 @@ export default function LoginForm() {
     try {
       const success = await apiService.auth.login(values);
       console.log(success, "success");
+      const accessToken = success.data?.access;
+      const refreshToken = success.data?.refresh;
+      localStorage.setItem(StorageEnum.ACCESS_TOKEN, accessToken)
+      localStorage.setItem(StorageEnum.REFRESH_TOKEN, refreshToken)
     } catch (error) {
       console.error(error);
     } finally {

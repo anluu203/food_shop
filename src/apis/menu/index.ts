@@ -7,11 +7,7 @@ const appMenu = ApiEnum.APP_MENU;
 
 export default class MenuService {
   async getList(params?: any) {
-    const url = `${baseURL}/${appMenu}/menu-items/`;
+    const url = `${appMenu}/menu-items/`;
     return axiosClient.get(url, params);
-  }
-  async refreshToken(params: any) {
-    const url = `${baseURL}token/refresh/`;
-    return axios.post(url, params);
   }
 }
