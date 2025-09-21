@@ -121,6 +121,7 @@ const positions = [
   "Bảo vệ",
   "Tạp vụ",
 ];
+
 const departments = [
   "Phục vụ",
   "Bếp",

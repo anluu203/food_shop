@@ -1,29 +1,26 @@
-"use client"
+import { useState } from "react";
+import { Form, Input, Button, Card, Typography, Space } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import apiService from "@/apis";
 
-import { useState } from "react"
-import { Form, Input, Button, Card, Typography, Alert, Space } from "antd"
-import { UserOutlined, LockOutlined } from "@ant-design/icons"
-import { useAuth } from "@/contexts/AuthContext"
-
-const { Title, Text } = Typography
+const { Title, Text } = Typography;
 
 export default function LoginForm() {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
-  const { login } = useAuth()
+  const [loading, setLoading] = useState(false);
 
   const onFinish = async (values: { username: string; password: string }) => {
-    setLoading(true)
-    setError("")
-
-    const success = await login(values.username, values.password)
-
-    if (!success) {
-      setError("Tên đăng nhập hoặc mật khẩu không đúng")
+    console.log(values);
+    
+    setLoading(true);
+    try {
+      const success = await apiService.auth.login(values);
+      console.log(success, "success");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false)
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
@@ -35,23 +32,35 @@ export default function LoginForm() {
           <Text type="secondary">Đăng nhập để tiếp tục</Text>
         </div>
 
-        {error && <Alert message={error} type="error" showIcon className="mb-4" />}
-
         <Form name="login" onFinish={onFinish} layout="vertical" size="large">
           <Form.Item
             name="username"
             label="Tên đăng nhập"
-            rules={[{ required: true, message: "Vui lòng nhập tên đăng nhập!" }]}
+            rules={[
+              { required: true, message: "Vui lòng nhập tên đăng nhập!" },
+            ]}
           >
             <Input prefix={<UserOutlined />} placeholder="Nhập tên đăng nhập" />
           </Form.Item>
 
-          <Form.Item name="password" label="Mật khẩu" rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}>
-            <Input.Password prefix={<LockOutlined />} placeholder="Nhập mật khẩu" />
+          <Form.Item
+            name="password"
+            label="Mật khẩu"
+            rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
+          >
+            <Input.Password
+              prefix={<LockOutlined />}
+              placeholder="Nhập mật khẩu"
+            />
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading} className="w-full">
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              className="w-full"
+            >
               Đăng nhập
             </Button>
           </Form.Item>
@@ -68,5 +77,5 @@ export default function LoginForm() {
         </div>
       </Card>
     </div>
-  )
+  );
 }

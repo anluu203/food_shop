@@ -10,17 +10,22 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   server: {
     port: 5000,
-  },
-  optimizeDeps: {
-    include: ['fabric'], // Đảm bảo Vite pre-bundles gói `fabric`
+    proxy: {
+      "/api": {
+        target: "https://theodorescsa.id.vn", // BE gốc
+        changeOrigin: true,
+        secure: false, // bỏ check SSL (fix được ERR_CERT_COMMON_NAME_INVALID khi dev)
+        rewrite: (path) => path.replace(/^\/api/, "/api/app-home/api"),
+      },
+    },
+
   },
   build: {
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Tách các thư viện lớn vào các chunk riêng biệt
           if (id.includes('node_modules')) {
-            return 'vendor'; // Các thư viện từ node_modules sẽ được tách vào chunk vendor
+            return 'vendor'; 
           }
         }
       }

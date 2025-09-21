@@ -13,3 +13,18 @@ export const foodsImage = {
   nuoc_ngot:
     "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2024_6_5_638532030774184406_nuoc-ngot-co-ga-avt.jpg",
 };
+
+
+export enum StorageEnum {
+  ACCESS_TOKEN = 'access_token',
+  REFRESH_TOKEN = 'refresh_token',
+  USER = 'user',
+  STATUS_LOGIN = 'statusLogin',
+  REMEMBER_ME = 'remember_me'
+}
+
+
+export enum ApiEnum {
+  APP_HOME = 'app-home/api',
+  APP_MENU = 'app-menu'
+}
